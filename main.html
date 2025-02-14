@@ -11,21 +11,18 @@
     <div class="container">
       <header>
         <nav class="menu">
-          <h3>TYPING TEST APP</h3>
-          <h3 class="test">1 MINUTE TYPING TEST</h3>
+          <h1 class="test">TYPING TEST APP</h1>
+          <h2 class="test">1 MINUTE TYPING TEST</h2>
           <ul class="controls">
-            <li class="button">
+            <li>
               <button class="button" id="reset">
                 Reset current test (or Enter)
               </button>
             </li>
-            <li class="button">
+            <li>
               <button class="button" id="restart">
                 Restart with new test (or ESC)
               </button>
-            </li>
-            <li class="button">
-              <button class="button" id="history-reset">Clear history</button>
             </li>
           </ul>
         </nav>
@@ -56,8 +53,12 @@
         </div>
       </section>
       <footer>
+        <div class="history-head">
+          <P>Historical results</P>
+          <button class="button" id="history-reset">Clear history</button>
+        </div>
         <div class="container">
-          <table class="history" id="history"></table>
+          <table id="history"></table>
         </div>
       </footer>
     </div>

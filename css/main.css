@@ -3,6 +3,7 @@
   --def-border-radius: 1rem;
   --def-padding: 1rem;
   --def-text-color: white;
+  --def-text-color-menu: rgb(228, 204, 118);
 }
 
 * {
@@ -24,6 +25,9 @@ textarea:focus {
   border: none;
   outline: none;
 }
+p {
+  margin: 1px;
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -36,6 +40,11 @@ textarea:focus {
   margin-top: 15px;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .button {
   padding-left: 0.5rem;
@@ -67,6 +76,15 @@ textarea:focus {
   display: inline-flex;
   justify-content: space-between;
   width: 100%;
+  color: var(--def-text-color-menu);
+}
+.history-head {
+  display: inline-flex;
+  font-size: large;
+  justify-content: space-around;
+  width: 100%;
+  color: var(--def-text-color-menu);
+  text-decoration: underline;
 }
 .correct {
   background-color: rgb(69, 219, 116);
@@ -108,4 +126,9 @@ textarea:focus {
   font-size: small;
   color: rgb(228, 204, 118);
   /* border-radius: 1rem; */
+}
+.controls {
+  list-style-type: none;
+  margin: 1px;
+  padding: 0%;
 }
