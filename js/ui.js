@@ -1,3 +1,10 @@
+/**
+ * Renders a value to the specified element.
+ * @param {HTMLElement} element - The element to render the value to.
+ * @param {string|number} value - The value to render.
+ */
+
+
 function lockedInputField(element, value) {
   element.disabled = value;
   if (value === true) {

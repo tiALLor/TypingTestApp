@@ -1,6 +1,13 @@
-import {
-    renderValue,
-  } from "./ui.js";
+import { renderValue } from "./ui.js";
+/**
+ * Releases the current word element and updates the statistics.
+ * @param {Object} arr - The words array object.
+ * @param {number} arrIndex - The index of the current word in the array.
+ * @param {HTMLElement} typingElem - The typing input element.
+ * @param {HTMLElement} wpmElem - The element to display WPM.
+ * @param {HTMLElement} accuracyElem - The element to display accuracy.
+ * @param {number} startTime - The start time of the typing test.
+ */
 
 function releaseElement(
   arr,
@@ -15,10 +22,8 @@ function releaseElement(
   let word = arr.wordsArr[arrIndex].word;
   word = word + " ";
   const inputStr = typingElem.value;
-  // if (errorCount > 0 || word !== inputStr) {
   if (word !== inputStr) {
     arr.wrongCount += 1;
-    // errorCount = 0;
     resultCls = "wrong";
     arr.wordsArr[arrIndex].isCorrect = false;
   } else if (word === inputStr) {
@@ -48,10 +53,13 @@ function releaseElement(
   renderValue(accuracyElem, `${arr.calculateAccuracy()} %`);
 }
 
+/**
+ * Installs the current word element for typing.
+ * @param {Object} arr - The words array object.
+ * @param {number} arrIndex - The index of the current word in the array.
+ */
 function installElement(arr, arrIndex) {
   const element = document.querySelector(`[data-arr-index="${arrIndex}"]`);
-  // set counter
-  //   errorCount = 0;
   // set class
   try {
     element.classList.add("in-progress");
