@@ -1,12 +1,6 @@
 import { renderValue } from "./ui.js";
 /**
  * Releases the current word element and updates the statistics.
- * @param {Object} arr - The words array object.
- * @param {number} arrIndex - The index of the current word in the array.
- * @param {HTMLElement} typingElem - The typing input element.
- * @param {HTMLElement} wpmElem - The element to display WPM.
- * @param {HTMLElement} accuracyElem - The element to display accuracy.
- * @param {number} startTime - The start time of the typing test.
  */
 
 function releaseElement(
@@ -55,8 +49,6 @@ function releaseElement(
 
 /**
  * Installs the current word element for typing.
- * @param {Object} arr - The words array object.
- * @param {number} arrIndex - The index of the current word in the array.
  */
 function installElement(arr, arrIndex) {
   const element = document.querySelector(`[data-arr-index="${arrIndex}"]`);

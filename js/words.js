@@ -1,3 +1,6 @@
+/**
+ * Class for storing text for test and its test results
+ */
 class WordsArr {
   constructor() {
     //original fetched text, for reset
@@ -52,6 +55,9 @@ class WordsArr {
   }
 }
 
+/**
+ * Object for text word
+ */
 class Word {
   constructor(word) {
     this.word = word;
@@ -59,6 +65,9 @@ class Word {
   }
 }
 
+/**
+ * Fetch data from API
+ */
 async function getData() {
   const url = "https://poetrydb.org/linecount,random/30;1";
   //following line has a failure, its for testing:
@@ -76,6 +85,9 @@ async function getData() {
   }
 }
 
+/**
+ * Evaluation of fetched data, manipulation with them
+ */
 async function getText(length) {
   for (let i = 0; i < 10; i++) {
     const data = await getData();
@@ -88,17 +100,13 @@ async function getText(length) {
         }
         const lines = await data[0]["lines"];
         let textStr = lines.join(" ");
-        // console.log(textStr);
         textStr = textStr.trim();
         textStr = textStr.replace(/\s{2,}/g, " ");
         textStr = textStr.replace(/--/g, "-");
-        // console.log(textStr);
         let textArr = textStr.split(" ");
-        // console.log(textArr.length);
         // slice the array to 217 words
         if (textArr.length > 217) {
           textArr = textArr.splice(0, 217);
-          // console.log(textArr.length);
           return textArr;
         } else if (textArr.length > length) {
           return textArr;
@@ -112,7 +120,9 @@ async function getText(length) {
     throw new Error("Attempt to get text with specified length failed");
   }
 }
-
+/**
+ * Requests string and creates array of word objects
+ */
 async function getWords(arrWords) {
   try {
     arrWords.origArr = await getText(150);

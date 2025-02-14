@@ -31,7 +31,6 @@ export class History {
       const txtData = localStorage.getItem("history");
       if (txtData) {
         const data = JSON.parse(txtData);
-        console.log("Loaded history data:", data);
         this.date = data.date;
         this.wpm = data.wpm;
         this.accuracy = data.accuracy;
@@ -75,7 +74,9 @@ export class History {
     console.log(`Logged data: ${formattedDate}, ${wpm}, ${accuracy}`);
     this.saveData();
   }
-
+  /**
+   * Created array of historical parameters to be rendered as table
+   */
   createTable() {
     if (
       this.date.length === this.wpm.length &&
@@ -93,14 +94,23 @@ export class History {
         ];
         table.push(row);
       }
-      console.log(table);
       return table;
     } else {
       console.log("History records are corrupt");
     }
   }
+  /**
+   * Calculate avg value of WPS from historical data
+   */
+  calcAvgWpm() {
+    let sum = this.wpm.reduce((accumulator, value) => accumulator + value, 0);
+    return Math.round(sum / this.wpm.length);
+  }
 }
 
+/**
+ * Renders historical parameters as a table base o array data
+ */
 export function renderHistory(historyTable, historyElement) {
   historyElement.innerHTML = ""; // Clear the boardElement before rendering
   historyTable.forEach((row, rowIndex) => {
@@ -115,4 +125,18 @@ export function renderHistory(historyTable, historyElement) {
     });
     historyElement.appendChild(rowElement);
   });
+}
+
+export function renderResults(resultsElem, actWpm, avgWpm) {
+  let msg;
+  if (actWpm > avgWpm) {
+    msg = `Your test result is ${actWpm} WPM, you have improved (avg ${avgWpm} WPM)!`;
+  } else if ((actWpm === avgWpm)) {
+    msg = `Your test result is ${actWpm} WPM, good result (avg ${avgWpm} WPM)!`;
+  } else if (actWpm < avgWpm) {
+    msg = `Your test result is ${actWpm} WPM, you scored bellow avg. (avg ${avgWpm} WPM)!`;
+  } else {
+    msg = `Your test result is ${actWpm} WPM!`;
+  }
+  resultsElem.textContent = msg;
 }

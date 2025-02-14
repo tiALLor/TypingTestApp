@@ -1,9 +1,6 @@
 /**
  * Renders a value to the specified element.
- * @param {HTMLElement} element - The element to render the value to.
- * @param {string|number} value - The value to render.
  */
-
 function lockedInputField(element, value) {
   element.disabled = value;
   if (value === true) {
@@ -13,6 +10,9 @@ function lockedInputField(element, value) {
   }
 }
 
+/**
+ * Increments word index
+ */
 function incrementWordIndex(currentIndex, maxIndex) {
   if (currentIndex < maxIndex) {
     currentIndex++;
@@ -20,10 +20,16 @@ function incrementWordIndex(currentIndex, maxIndex) {
   return currentIndex;
 }
 
+/**
+ * Renders test parameter
+ */
 function renderValue(element, value) {
   element.textContent = `${value}`;
 }
 
+/**
+ * Resets temporary evaluation of written character
+ */
 function resetCharEval(wordElement, wordLength) {
   for (let wordIndex = 0; wordIndex < wordLength; wordIndex++) {
     const element = wordElement.querySelector(

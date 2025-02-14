@@ -13,8 +13,6 @@
 body {
   background-color: rgba(46, 46, 46, 0.995);
   color: var(--def-text-color);
-  /* color: rgb(228, 204, 118); */
-  /* color: rgb(12, 161, 111); */
 }
 textarea {
   background-color: rgba(46, 46, 46, 0.995);
@@ -120,6 +118,14 @@ p {
   border: var(--def-border);
   border-radius: var(--def-border-radius);
   min-width: 150px;
+}
+.results {
+  flex-direction: column;
+  font-size: x-large;
+  text-align: center;
+  min-width: 150px;
+  padding: var(--def-padding);
+  color: var(--def-text-color-menu);
 }
 .cell {
   border-bottom: 0.5px solid rgb(158, 42, 207);

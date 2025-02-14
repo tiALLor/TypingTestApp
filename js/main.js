@@ -6,7 +6,7 @@ import {
   resetCharEval,
 } from "./ui.js";
 import { releaseElement, installElement } from "./elements.js";
-import { History, renderHistory } from "./history.js";
+import { History, renderHistory, renderResults } from "./history.js";
 
 var words;
 var history;
@@ -16,13 +16,17 @@ let checkWordIndex;
 let startTime;
 let countdownTyping;
 
+/**
+ * Starts the test= timer...
+ */
 function startTimer(
   arr,
   typingElem,
   timeElem,
   wpmElem,
   history,
-  historyElement
+  historyElem,
+  resultsElem
 ) {
   const duration = 60;
   let timeLeft = duration;
@@ -36,9 +40,10 @@ function startTimer(
     clearInterval(countdownTyping);
     renderValue(timeElem, "- -");
     renderValue(wpmElem, arr.correctCount);
+    renderResults(resultsElem, arr.correctCount, history.calcAvgWpm());
     // save result to history
     history.saveResults(arr.correctCount, `${arr.calculateAccuracy()} %`);
-    renderHistory(history.createTable(), historyElement);
+    renderHistory(history.createTable(), historyElem);
   }, duration * 1000);
   startTime = Date.now();
   // timer visualization
@@ -51,7 +56,15 @@ function startTimer(
 /**
  * Reinitializes the wordsArr base on data in origArr
  */
-function restart(arr, textElem, typingElem, timeElem, wpmElem, accuracyElem) {
+function restart(
+  arr,
+  textElem,
+  typingElem,
+  timeElem,
+  wpmElem,
+  accuracyElem,
+  resultsElem
+) {
   // restart with current words array
   arr.createWordsArr();
   arr.renderWords(textElem);
@@ -69,6 +82,7 @@ function restart(arr, textElem, typingElem, timeElem, wpmElem, accuracyElem) {
   renderValue(timeElem, "- -");
   renderValue(wpmElem, "");
   renderValue(accuracyElem, "");
+  renderValue(resultsElem, "");
 }
 
 /**
@@ -77,27 +91,27 @@ function restart(arr, textElem, typingElem, timeElem, wpmElem, accuracyElem) {
 function evaluateInput(arr, typingElem) {
   var word = arr.wordsArr[checkWordIndex].word;
   word = word + " ";
-  const wordElement = document.querySelector(
+  const wordElem = document.querySelector(
     `[data-arr-index="${checkWordIndex}"]`
   );
   // evaluate the input
   const inputStr = typingElem.value;
-  resetCharEval(wordElement, word.length);
+  resetCharEval(wordElem, word.length);
   inputStr.split("").map((letter, wordIndex) => {
     if (letter === word[wordIndex]) {
-      wordElement
+      wordElem
         .querySelector(`[data-word-index="${wordIndex}"]`)
         .classList.add("correct");
     } else {
       if (wordIndex < word.length) {
-        wordElement
+        wordElem
           .querySelector(`[data-word-index="${wordIndex}"]`)
           .classList.add("wrong");
       }
     }
   });
   if (inputStr.length > word.length) {
-    wordElement
+    wordElem
       .querySelector(`[data-word-index="${word.length - 1}"]`)
       .classList.add("wrong");
   }
@@ -113,12 +127,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   const timeElem = document.getElementById("timer");
   const wpmElem = document.getElementById("wpm");
   const accuracyElem = document.getElementById("accur-perc");
-  const historyElement = document.getElementById("history");
+  const historyElem = document.getElementById("history");
+  const resultsElem = document.getElementById("results");
 
   // object instantiation
   history = new History();
   history.loadData();
-  renderHistory(history.createTable(), historyElement);
+  renderHistory(history.createTable(), historyElem);
   words = new WordsArr();
   await getWords(words);
   // console.log(words.wordsArr);
@@ -127,11 +142,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.addEventListener("keyup", async (event) => {
     if (event.key === "Enter") {
       // restart with current words array
-      restart(words, textElem, typingElem, timeElem, wpmElem, accuracyElem);
+      restart(
+        words,
+        textElem,
+        typingElem,
+        timeElem,
+        wpmElem,
+        accuracyElem,
+        resultsElem
+      );
     } else if (event.key === "Escape") {
       // load new words array
       await getWords(words);
-      restart(words, textElem, typingElem, timeElem, wpmElem, accuracyElem);
+      restart(
+        words,
+        textElem,
+        typingElem,
+        timeElem,
+        wpmElem,
+        accuracyElem,
+        resultsElem
+      );
     }
   });
 
@@ -146,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("history-reset").addEventListener("click", () => {
     history.clearHistory();
-    renderHistory(history.createTable(), historyElement);
+    renderHistory(history.createTable(), historyElem);
   });
 
   typingElem.addEventListener("keyup", (event) => {
@@ -172,7 +203,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       // space is hit test not in progress
       // set the start Index
       checkWordIndex = 0;
-      startTimer(words, typingElem, timeElem, wpmElem, history, historyElement);
+      startTimer(
+        words,
+        typingElem,
+        timeElem,
+        wpmElem,
+        history,
+        historyElem,
+        resultsElem
+      );
       typingElem.value = ""; // Erase the typing element
     } else {
       if (!disabledTyping && !timerTyping) {
@@ -184,7 +223,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           timeElem,
           wpmElem,
           history,
-          historyElement
+          historyElem,
+          resultsElem
         );
         installElement(words, checkWordIndex);
       }
