@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Type Test app</title>
+    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav class="menu">
+          <h3>Typing test app</h3>
+          <h3 class="test">1 minute typing test</h3>
+          <ul class="controls">
+            <li class="button">
+              <button class="button" id="reset">
+                Reset current test (or Enter)
+              </button>
+            </li>
+            <li class="button">
+              <button class="button" id="restart">
+                Restart with new test (or ESC)
+              </button>
+            </li>
+            <li class="button">
+              <button class="button" id="history">Historical records</button>
+            </li>
+          </ul>
+        </nav>
+        <br />
+        <!--to be removed-->
+        <div class="statistics">
+          <div class="stat-header">
+            <div>Timer:</div>
+            <div class="stat-value" id="timer"> - - </div>
+          </div>
+          <div class="stat-header">
+            <div>WPM:</div>
+            <div class="stat-value" id="wpm"></div>
+          </div>
+          <div class="stat-header">
+            <div>Word accuracy:</div>
+            <div class="stat-value" id="accur-perc"></div>
+          </div>
+        </div>
+        <br />
+        <!--to be removed-->
+      </header>
+      <section class="container">
+        <div class="text" id="text-field"></div>
+        <div class="container typing-field">
+          <label for="typing-field">Type you text here:</label>
+          <textarea id="typing-field"></textarea>
+        </div>
+      </section>
+      <footer>
+        <div class="history" id="history">Some text</div>
+      </footer>
+    </div>
+  </body>
+</html>
