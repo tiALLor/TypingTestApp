@@ -1,20 +1,36 @@
 :root {
-  --def-border: 2px solid black;
+  --def-border: 2px solid rgb(158, 42, 207);
   --def-border-radius: 1rem;
   --def-padding: 1rem;
+  --def-text-color: white;
 }
 
 * {
   box-sizing: border-box;
   /* border: 0.2px solid black; */
 }
+body {
+  background-color: rgba(46, 46, 46, 0.995);
+  color: var(--def-text-color);
+  /* color: rgb(228, 204, 118); */
+  /* color: rgb(12, 161, 111); */
+}
+textarea {
+  background-color: rgba(46, 46, 46, 0.995);
+  border: none;
+  color: var(--def-text-color);
+}
+textarea:focus {
+  border: none;
+  outline: none;
+}
 .container {
   display: flex;
   flex-direction: column;
   text-align: left;
   flex-wrap: wrap;
-  max-width: 100vw;
-  width: 100%;
+  max-width: 1000px;
+  /* width: 100%; */
   margin-left: auto;
   margin-right: auto;
   margin-top: 15px;
@@ -29,7 +45,7 @@
 .text {
   width: 100%;
   border: var(--def-border);
-  outline: 8px ridge rgba(170, 50, 220, 0.6);
+  outline: 8px ridge rgba(147, 19, 202, 0.6);
   border-radius: var(--def-border-radius);
   font-size: 1.5rem;
   padding: var(--def-padding);
@@ -53,10 +69,10 @@
   width: 100%;
 }
 .correct {
-  background-color: rgb(106, 222, 106);
+  background-color: rgb(69, 219, 116);
 }
 .wrong {
-  background-color: rgb(215, 91, 91);
+  background-color: rgb(205, 70, 70);
 }
 .in-progress * {
   text-decoration: underline;
@@ -83,4 +99,13 @@
   border: var(--def-border);
   border-radius: var(--def-border-radius);
   min-width: 150px;
+}
+.cell {
+  border-bottom: 0.5px solid rgb(158, 42, 207);
+  /* display: table-cell; */
+  text-align: center;
+  vertical-align: middle;
+  font-size: small;
+  color: rgb(228, 204, 118);
+  /* border-radius: 1rem; */
 }

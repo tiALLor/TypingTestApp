@@ -4,13 +4,12 @@
  * @param {string|number} value - The value to render.
  */
 
-
 function lockedInputField(element, value) {
   element.disabled = value;
   if (value === true) {
     element.style.backgroundColor = "lightgrey";
   } else {
-    element.style.backgroundColor = "white";
+    element.style.backgroundColor = "";
   }
 }
 
