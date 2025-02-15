@@ -83,8 +83,6 @@ export function handleTypingKeyUp(
     typingElem.value = "";
   } else if (event.key === " " && !timerTyping) {
     // space is hit test not in progress
-    // set the start Index
-    // checkWordIndex = 0;
     startTimer(
       words,
       typingElem,
@@ -97,8 +95,6 @@ export function handleTypingKeyUp(
     typingElem.value = ""; // Erase the typing element
   } else {
     if (!disabledTyping && !timerTyping) {
-      // set the start Index
-      // checkWordIndex = 0;
       startTimer(
         words,
         typingElem,
