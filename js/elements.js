@@ -1,9 +1,9 @@
 import { renderValue } from "./ui.js";
+
 /**
  * Releases the current word element and updates the statistics.
  */
-
-function releaseElement(
+export function releaseElement(
   arr,
   arrIndex,
   typingElem,
@@ -50,7 +50,7 @@ function releaseElement(
 /**
  * Installs the current word element for typing.
  */
-function installElement(arr, arrIndex) {
+export function installElement(arr, arrIndex) {
   const element = document.querySelector(`[data-arr-index="${arrIndex}"]`);
   // set class
   try {
@@ -69,5 +69,3 @@ function installElement(arr, arrIndex) {
     element.appendChild(letterElement);
   });
 }
-
-export { releaseElement, installElement };

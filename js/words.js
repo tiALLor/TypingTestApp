@@ -1,7 +1,9 @@
+import { fallbackText } from "./config.js";
+
 /**
  * Class for storing text for test and its test results
  */
-class WordsArr {
+export class WordsArr {
   constructor() {
     //original fetched text, for reset
     this.origArr = [];
@@ -58,7 +60,7 @@ class WordsArr {
 /**
  * Object for text word
  */
-class Word {
+export class Word {
   constructor(word) {
     this.word = word;
     this.isCorrect = "";
@@ -68,7 +70,7 @@ class Word {
 /**
  * Fetch data from API
  */
-async function getData() {
+export async function getData() {
   const url = "https://poetrydb.org/linecount,random/30;1";
   //following line has a failure, its for testing:
   // const url = "https://poetrydb.org/linecount,random,poemcount/20;1";
@@ -116,7 +118,8 @@ async function getText(length) {
       }
     } catch (error) {
       console.log(error);
-      return ["Attempt to get text from server failed!"];
+      // returns fall back text
+      return fallbackText;
     }
   }
   throw new Error("Attempt to get text with specified length failed!");
@@ -124,7 +127,7 @@ async function getText(length) {
 /**
  * Requests string and creates array of word objects
  */
-async function getWords(arrWords) {
+export async function getWords(arrWords) {
   try {
     arrWords.origArr = await getText(150);
     arrWords.createWordsArr();
@@ -133,5 +136,3 @@ async function getWords(arrWords) {
     console.log(error);
   }
 }
-
-export { WordsArr, Word, getWords };
