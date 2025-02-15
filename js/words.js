@@ -116,9 +116,10 @@ async function getText(length) {
       }
     } catch (error) {
       console.log(error);
+      return ["Attempt to get text from server failed!"];
     }
-    throw new Error("Attempt to get text with specified length failed");
   }
+  throw new Error("Attempt to get text with specified length failed!");
 }
 /**
  * Requests string and creates array of word objects
