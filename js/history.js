@@ -100,7 +100,7 @@ export class History {
     }
   }
   /**
-   * Calculate avg value of WPS from historical data
+   * Calculate avg value of WPM from historical data
    */
   calcAvgWpm() {
     let sum = this.wpm.reduce((accumulator, value) => accumulator + value, 0);
@@ -126,12 +126,14 @@ export function renderHistory(historyTable, historyElement) {
     historyElement.appendChild(rowElement);
   });
 }
-
+/**
+ * Renders results
+ */
 export function renderResults(resultsElem, actWpm, avgWpm) {
   let msg;
   if (actWpm > avgWpm) {
     msg = `Your test result is ${actWpm} WPM, you have improved (avg ${avgWpm} WPM)!`;
-  } else if ((actWpm === avgWpm)) {
+  } else if (actWpm === avgWpm) {
     msg = `Your test result is ${actWpm} WPM, good result (avg ${avgWpm} WPM)!`;
   } else if (actWpm < avgWpm) {
     msg = `Your test result is ${actWpm} WPM, you scored bellow avg. (avg ${avgWpm} WPM)!`;
