@@ -100,7 +100,7 @@ async function getText(length) {
         if (!data[0] || !data[0].lines) {
           throw new Error("Invalid data format");
         }
-        const lines = await data[0]["lines"];
+        const lines = data[0]["lines"];
         let textStr = lines.join(" ");
         textStr = textStr.trim();
         textStr = textStr.replace(/\s{2,}/g, " ");

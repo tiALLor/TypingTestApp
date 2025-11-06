@@ -12,13 +12,14 @@ let countdownTyping;
  * Starts the test= timer...
  */
 export function startTimer(
-  arr,
-  typingElem,
-  timeElem,
-  wpmElem,
-  history,
-  historyElem,
-  resultsElem
+  appContext
+  // arr,
+  // typingElem,
+  // timeElem,
+  // wpmElem,
+  // history,
+  // historyElem,
+  // resultsElem
 ) {
   let timeLeft = duration;
   checkWordIndex = 0;
@@ -26,22 +27,29 @@ export function startTimer(
   timerTyping = setTimeout(() => {
     // disable the input field
     disabledTyping === true;
-    lockedInputField(typingElem, true);
+    lockedInputField(appContext.typingElem, true);
     alert("Time is up! Please check the final results.");
     // releaseElement(words, checkWordIndex, typingElem, wpmElem, accuracyElem);
     clearInterval(countdownTyping);
-    renderValue(timeElem, "- -");
-    renderValue(wpmElem, arr.correctCount);
-    renderResults(resultsElem, arr.correctCount, history.calcAvgWpm());
+    renderValue(appContext.timeElem, "- -");
+    renderValue(appContext.wpmElem, appContext.words.correctCount);
+    renderResults(
+      appContext.resultsElem,
+      appContext.words.correctCount,
+      appContext.history.calcAvgWpm()
+    );
     // save result to history
-    history.saveResults(arr.correctCount, `${arr.calculateAccuracy()} %`);
-    renderHistory(history.createTable(), historyElem);
+    appContext.history.saveResults(
+      appContext.words.correctCount,
+      `${appContext.words.calculateAccuracy()} %`
+    );
+    renderHistory(appContext.history.createTable(), appContext.historyElem);
   }, duration * 1000);
   startTime = Date.now();
   // timer visualization
   countdownTyping = setInterval(() => {
     timeLeft--;
-    renderValue(timeElem, `${timeLeft - 1} sec.`);
+    renderValue(appContext.timeElem, `${timeLeft - 1} sec.`);
   }, 1000);
 }
 
@@ -49,19 +57,20 @@ export function startTimer(
  * Reinitializes the wordsArr base on data in origArr
  */
 export function restart(
-  arr,
-  textElem,
-  typingElem,
-  timeElem,
-  wpmElem,
-  accuracyElem,
-  resultsElem
+  appContext
+  // arr,
+  // textElem,
+  // typingElem,
+  // timeElem,
+  // wpmElem,
+  // accuracyElem,
+  // resultsElem
 ) {
   // restart with current words array
-  arr.createWordsArr();
-  arr.renderWords(textElem);
+  appContext.words.createWordsArr();
+  appContext.words.renderWords(appContext.textElem);
   //clearing the typing field and set variables to init value
-  typingElem.value = "";
+  appContext.typingElem.value = "";
   checkWordIndex = 0;
   disabledTyping = false;
   // cancel timers
@@ -69,12 +78,12 @@ export function restart(
   clearInterval(countdownTyping);
   timerTyping = false;
   // unlock the typing field
-  lockedInputField(typingElem, false);
+  lockedInputField(appContext.typingElem, false);
   // render initial values
-  renderValue(timeElem, "- -");
-  renderValue(wpmElem, "");
-  renderValue(accuracyElem, "");
-  renderValue(resultsElem, "");
+  renderValue(appContext.timeElem, "- -");
+  renderValue(appContext.wpmElem, "");
+  renderValue(appContext.accuracyElem, "");
+  renderValue(appContext.resultsElem, "");
 }
 
 /**
